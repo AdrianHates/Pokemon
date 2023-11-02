@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@100;400&family=Nova+Mono&family=Nova+Slim&family=Nova+Square&family=Righteous&display=swap');
+
+:root {
+  --c-white-0: #fff;
+  --c-white-0: #f9f8f9;
+  --c-white-1: #c2c2c2;
+  --c-green-0: green;
+  --c-black-0: #000;
+  --c-black-1: #777777;
+  --c-black-2: #73697f;
+  --c-black-3: #61605f;
+  --c-violet-1: #8795fe;
+  --c-blue-0: #79a8c0;
+  --c-blue-1: #9fc9e2;
+  --c-blue-2: #6f90a4;
+  --c-gray-0: gray;
+  --c-gray-1: rgb(192, 192, 192);
+  --c-plataforma-background: #f8f29a;
+  --c-plataforma-borde: #8d8533;
+  --c-escritura-borde: #97948b;
+  --c-sombra-character: #c2df9b;
+  --c-font-family-principal: 'Nova Square';
+  --c-letter-font-family-principal: #656565;
+  --v-text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+  ;
+}
+
+.flecha-selector-derecha {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 30px 0 30px 35px; /* Tamaño y forma de la flecha */
+  border-color: transparent transparent transparent var(--c-black-0); /* Color de la flecha */
+  display: inline-block;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5)); 
+
+}
+
+.flecha-show-words {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  clip-path: polygon(0% 0%, 40% 0%, 90% 50%, 40% 100%, 0% 100%);
+  background-color: var(--c-gray-0);
+}
+
+.options {
+  border-radius: 1.2rem;
+  border: 10px solid var(--c-black-1);
+  background-color: var(--c-white-0);
+  position: relative;
+  display: inline-block;
+  height: auto;
+  top: 25%;
+  left: 10%;
+  padding: 2rem 4rem;
+  
+  > li {
+    list-style-type: none;
+    font-size: 5rem;
+
+    & > div {
+      color: var(--c-black-0);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      font-family: 'Nova Slim', cursive;
+    }
+  }
+  & > div {
+    position: absolute;
+    left: 10px;
+  }
+}

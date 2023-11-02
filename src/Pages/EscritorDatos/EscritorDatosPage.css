@@ -1,0 +1,41 @@
+.escritor-datos {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.escritor-datos::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    repeating-linear-gradient(
+      to bottom,
+      yellow 0%,
+      yellow 1.5%,
+      white 1.5%,
+      white 3%
+    );
+}
+
+.escritor-datos::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at top, white, transparent), radial-gradient(ellipse at bottom, white, transparent);
+
+}
+
+
+
+
+

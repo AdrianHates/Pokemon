@@ -1,0 +1,26 @@
+.ask-gender {
+  border-radius: 1.2rem;
+  border: 10px solid var(--c-black-1);
+  background-color: var(--c-white-0);
+  position: relative;
+  display: inline-block;
+  height: auto;
+  top: 25%;
+  left: 10%;
+  padding: 2rem 4rem;
+  
+  > li {
+    list-style-type: none;
+    font-size: 5rem;
+
+    & > div {
+      color: var(--c-black-0);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      font-family: 'Nova Slim', cursive;
+    }
+  }
+  & > div {
+    position: absolute;
+    left: 10px;
+  }
+}

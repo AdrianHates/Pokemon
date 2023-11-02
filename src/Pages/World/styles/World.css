@@ -1,0 +1,44 @@
+#world {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & > div:first-of-type {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid black;
+    & > div {
+      & > div {
+        & > div {
+        position: absolute;
+        bottom: 0;
+        width: 70px;
+        z-index: 99;
+        left: 0;
+        height: 100px;
+        background-position: 0px 0px;
+        background-size: 1600px 1082px; /*proporcion a la imagen original para mantener simetria*/
+        /*transition: background-position 0.2s steps(4) infinite;*/
+        }
+        
+      }
+    }
+  }
+  /*revisar-descripcion-world*/
+  & > div:nth-of-type(2) {
+    position: absolute;
+    width: 98%;
+    height: 22.5vh;
+    bottom: calc(7.5px + 5px);
+  }
+}
+
+.descripcion-world {
+padding: 1rem 2rem;
+font-size: 2rem;
+border: 7.5px solid rgb(18, 192, 18);
+box-shadow: 1px 3px 1px 5px rgb(8, 192, 39);
+border-radius: 2rem;
+background-color: var(--c-white-0);
+}

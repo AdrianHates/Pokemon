@@ -1,0 +1,16 @@
+#inicio-menu-options {
+  background-color: var(--c-violet-1);
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1rem 3rem;
+}
+
+#inicio-menu-gender, #inicio-menu-confirm {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(to bottom, rgb(121, 252, 121) 0%, rgb(0, 156, 0) 10%, black 25%, black 100%);
+
+}

@@ -1,0 +1,65 @@
+.plataforma {
+  width: 750px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: var(--c-plataforma-background);
+  border: 10px solid var(--c-plataforma-borde);
+  position: absolute;
+  bottom: 0;
+}
+
+#plataforma {
+  background-color: transparent;
+  width: 750px;
+  height: 425px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-65%);
+  overflow: hidden;
+  & > img {
+    position: absolute;
+    height: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: fadeIn .75s forwards;
+
+  }
+}
+
+.entrar {
+  animation: fadeRight .75s forwards !important
+}
+
+.salir {
+  animation: fadeLeft .75s forwards !important
+}
+
+@keyframes fadeRight {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(50%);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeLeft {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
