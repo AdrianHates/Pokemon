@@ -7,7 +7,7 @@ import Duelo from './Pages/Duelo';
 import Inicio from './Pages/Inicio/InicioPage';
 import EscritorDatos from './Pages/EscritorDatos/Escritor.DatosPage';
 
-export const spriteBruno = 'https://i.imgur.com/UcyAUFq.png'
+export const spriteBruno = 'https://i.imgur.com/6oa9is6.png'
 
 function playerReducer(state:any, action:any) {
   switch (action.type) {
