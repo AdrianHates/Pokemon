@@ -12,5 +12,5 @@ export default function crearSeed ( x:number,y:number ) {
   return mapa
 }
 
-export const host = 'https://pokemon-6lu5.onrender.com'
+export const host = 'https://backendpokemon.onrender.com'
 
