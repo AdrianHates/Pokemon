@@ -1,6 +1,6 @@
 import { host } from "../Datos/datos";
 
-export async function nuevPartida(state:any) {
+export async function nuevaPartida(state:any) {
   try {
     const response = await fetch(`${host}/api/v1/usuarios`, {
         method: 'POST',

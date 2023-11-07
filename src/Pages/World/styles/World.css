@@ -41,4 +41,5 @@ border: 7.5px solid rgb(18, 192, 18);
 box-shadow: 1px 3px 1px 5px rgb(8, 192, 39);
 border-radius: 2rem;
 background-color: var(--c-white-0);
+z-index: 100;
 }

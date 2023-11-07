@@ -1,4 +1,4 @@
-export default function crearSeed ( x:number,y:number ) {
+export default function crearSeed () {
   const mapa = []
   for (let i = 0; i < 20; i++) {
     const fila = [];
@@ -12,5 +12,10 @@ export default function crearSeed ( x:number,y:number ) {
   return mapa
 }
 
-export const host = 'https://backendpokemon.onrender.com'
+export const host = "http://127.0.0.1:3000" || 'https://backendpokemon.onrender.com'
 
+export function transformXP (xp:number) {
+  if(xp === 0) return 1
+  const raizCubica = Math.cbrt(xp);
+  return raizCubica
+}

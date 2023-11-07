@@ -1,6 +1,9 @@
-import Pokemon from "../Componentes/Pokemon";
+import Pokemon from "../../Componentes/Pokemon";
 import { useState, useEffect, useReducer } from "react";
 import { useNavigate} from "react-router-dom";
+import { plataformaDuelo } from "../../assets/svgs";
+import BarraDuelo from "../../Componentes/BarraDuelo";
+import './styles.css/Duelo.css'
 const opciones = ['LUCHA', 'MOCHILA', 'POKÉMON', 'HUIDA']
 
 
@@ -57,13 +60,14 @@ export default function Duelo ( { yo, pokemonEnemigo, setEvento } ) {
     }
   }
   
-
+/*
   function TablaDeLucha () {
     const first = yo[0].data.name.slice(0,1).toUpperCase()
     const last = yo[0].data.name.slice(1)
     setDisplayText(`¿Qué debería hacer ${first + last} ?`)
     dispatch({ type: 'MOSTRAR_OPCIONES' });
   }
+*/
   function atacar(state) {
     setPokemon({...pokemon, HPActual: pokemon.HPActual - yo.habilidades[state.opcion].damage })
   }
@@ -89,6 +93,7 @@ export default function Duelo ( { yo, pokemonEnemigo, setEvento } ) {
         break;
       }
   }
+  /*
   useEffect(() => {
     if(!secuencia) {
       let currentIndex = 0;
@@ -129,21 +134,22 @@ export default function Duelo ( { yo, pokemonEnemigo, setEvento } ) {
   
 
   }, [secuencia]);
-
+*/
   useEffect( () => {
     document.addEventListener('keydown', selectMostrarOpciones);
     return () => {
       document.removeEventListener('keydown', selectMostrarOpciones);
     }
   }, [])
-
+/*
   useEffect( () => {
     if(pokemon.HPActual === 0) {
       setEvento(false)
       navigate("/world");
     }
   } , [pokemon.HPActual])
-
+*/
+/*
   useEffect (() => {
     if(select.opcionesHabilidadesAnimation === 2) {
       setTimeout(() => {
@@ -156,45 +162,27 @@ export default function Duelo ( { yo, pokemonEnemigo, setEvento } ) {
     }
     
   }, [select.opcionesHabilidadesAnimation])
-
+*/
+console.log(yo)
   return(
     <div id='duelo'>
       <div>
         <div style={{backgroundColor: `${animation?'white':''}`, opacity: `${animation?'0.5':''}` ,animation:`${animation?'impactrueno-animation 1s ease infinite':''}`}}>
           <Pokemon alt={pokemonEnemigo.name} src={pokemon.sprites.versions['generation-iii'].emerald.front_default} />
-
-          <svg xmlns="http://www.w3.org/2000/svg" width="600" height="200" viewBox="-15 -10 30 20">
-          <ellipse stroke="#000" fill="green" rx="23" ry="9"/>
-          </svg>
+          {plataformaDuelo}
+          
         </div>
 
-        <div>
-          <div>
-            <div>{pokemonEnemigo.name.toUpperCase()}</div>
-            <div>Nv{pokemonEnemigo.Nv}</div>
-          </div>
-          <div>
-            <div>
-              <div>
-                <div style={{height: '100%', width: `${((pokemon.stats[0].base_stat - pokemon.HPActual)/pokemon.stats[0].base_stat) * 100}%`, backgroundColor: 'black', position: 'absolute', right: '0', transform: 'scaleX(-1)'}}>
-                  
-                </div>
-              </div>
-            </div>
-            <div>{`${pokemon.HPActual}/${pokemon.stats[0].base_stat}`}</div>
-
-          </div>
-        </div>
+        <BarraDuelo datos={pokemonEnemigo} />
       </div>
       <div>
         <div>
-        <Pokemon alt={yo.name} src={yo[0].data.sprites.versions['generation-iii']['ruby-sapphire'].back_default} />
-
-        <svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="-15 -10 30 20">
-        <ellipse stroke="#000" fill="green" rx="21" ry="9"/>
-        </svg>
+        <Pokemon alt={yo.name} src={yo.sprites.versions['generation-iii']['ruby-sapphire'].back_default} />
+        {plataformaDuelo}
         </div>
-      </div>
+        <BarraDuelo datos={yo} />
+
+        </div>
       <div className="descripcion-duelo" >
         {(select.opcionesHabilidadesAnimation === null || select.opcionesHabilidadesAnimation === 0) && <div className="texto">{displayText}</div>}
         {
@@ -226,7 +214,7 @@ export default function Duelo ( { yo, pokemonEnemigo, setEvento } ) {
                 asd
               </div>
               </>
-        }
+            }
       </div>
     </div>
   )

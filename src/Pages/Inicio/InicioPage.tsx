@@ -1,13 +1,13 @@
-import { useEffect, useReducer, useState } from "react"
+import { useEffect, useReducer } from "react"
 import { useNavigate } from "react-router-dom";
 import MenuOptions from "./MenuOptions";
 import AskGender from "./AskGender"
 import "./InicioPage.css"
 import Plataforma from "./Plataforma";
 import Options from "../../Componentes/Options";
-import { nuevPartida } from "../../services/post";
+import { nuevaPartida } from "../../services/post";
 import { cargarPartidaByID, cargarPartidas } from "../../services/get";
-import { Usuario } from "../../Datos/class";
+import { Player } from "../../Datos/class";
 import crearSeed from "../../Datos/datos";
 
 const ACTIONS = {
@@ -19,11 +19,6 @@ const ACTIONS = {
   SELECT_CONFIRM: "select_confirm",
   ALL: "all"
 };
-
-async function cargarPlayer(id:number) {
-  const data = await cargarPartidaByID(id)
-  return data
-}
 
 function optionsReducer(state, action) {
   switch (action.type) {
@@ -89,8 +84,10 @@ export default function Inicio ( { setSeed, dispatchPlayer, confirmState, setCon
         if (state.gameState === "menu-options") {
           dispatch({ type: ACTIONS.SELECT_OPTION })
           if(state.options[state.indexOption]['id']) {
-            const data = await cargarPlayer(state.options[state.indexOption]['id'])
-            const newData = new Usuario(data)
+            const data = await cargarPartidaByID(state.options[state.indexOption]['id'])
+            console.log(data)
+            const newData = new Player(data)
+            console.log(newData)
             dispatchPlayer( { type: 'NEW_VALUE', payload: newData })
             setSeed(crearSeed)
             navigate('/world')
@@ -107,7 +104,7 @@ export default function Inicio ( { setSeed, dispatchPlayer, confirmState, setCon
           navigate("/EscritorDatos")
         } else if (state.gameState === "menu-confirm" && state.indexOption === 0) {
           dispatch({ type: ACTIONS.SELECT_CONFIRM })
-          await nuevPartida(state)
+          await nuevaPartida(state)
           navigate("/world")
         }
         break;

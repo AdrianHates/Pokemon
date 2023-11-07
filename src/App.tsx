@@ -3,13 +3,15 @@ import { Routes, Route } from 'react-router-dom';
 
 import './App.css'
 import World from './Pages/World/World';
-import Duelo from './Pages/Duelo';
+import Duelo from './Pages/Duelo/Duelo';
 import Inicio from './Pages/Inicio/InicioPage';
 import EscritorDatos from './Pages/EscritorDatos/Escritor.DatosPage';
+import { getPokemonById } from './services/get';
+import useProbability from './CustomHooks/useProbability';
 
 export const spriteBruno = 'https://i.imgur.com/6oa9is6.png'
 
-function playerReducer(state:any, action:any) {
+function playerReducer(state:object, action:any) {
   switch (action.type) {
       
     case 'MOVE_RIGHT':
@@ -46,10 +48,12 @@ function App() {
   const [mapa, setMapa] = useState(null)  //1
   const [player, dispatchPlayer] = useReducer(playerReducer, null); //1
   const [seed, setSeed] = useState(null) // 1
-  const enemigo = null //0
+  const [me, setMe] = useState(null)
+  const [enemigo, setEnemigo] = useState(null) //0
   const [debounce, setDebounce] = useState(false) //1
-  const [evento, setEvento] = useState(false) //0
-  //const pokemones = [1,4,7,25] 0
+  const [evento, setEvento] = useState(null) //0
+  const pokemones = [1,4,7,25] //0
+  const { result, updateProbability } = useProbability(null)
   /*
   async function cargarPokemons () {
     const pokemones = Object.values(player.pokemon)
@@ -75,19 +79,19 @@ function App() {
   }
 */
   useEffect(() => {
-  }, [])
+    const numero = Math.floor(Math.random() * pokemones.length)
+    if(result) {
+      setEvento({
+      name: `Ha aparecido un pokemón!`,
+      pokemon: `${numero}`,  
 
-  useEffect(() => {
-    
-    if(player&&seed) {
-    const updateSeed = seed.map(row => row.map( cell => ( { ...cell } )))
-    updateSeed[player.x][player.y].tipo = 'player'
-    
-      if(updateSeed[player.x][player.y].clase === 'grass') {
-      /*const numero = Math.floor(Math.random() * pokemones.length)
-        setEvento({
-        name: 'Ha aparecido un pokemón!',
-        pokemon: `${numero}`,        
+      })
+      getPokemonById(player.pokemons[0].pokemon_id)
+      .then((data) => {
+        const newData = {...data, XP: player.pokemons[0].XP, HPActual: data.stats[0].base_stat}
+        setMe(newData)
+      }).catch((error) => {
+        console.log(error)
       })
       getPokemonById(pokemones[numero])
       .then((data) => {
@@ -96,23 +100,37 @@ function App() {
       })
       .catch((error) => {
         console.log(error);
-      })*/
+      })
+    }
+  }, [result])
+
+
+  useEffect(() => {
+    
+    if(player&&seed) {
+    const updateSeed = seed.map(row => row.map( cell => ( { ...cell } )))
+    updateSeed[player.x][player.y].tipo = 'player'
+    
+      if(updateSeed[player.x][player.y].clase === 'grass') {
+      updateProbability(0.4)     
     }
 
     if(updateSeed[player.x][player.y].clase === 'tierra') {
       setEvento(false)
     }
+
     setMapa(updateSeed)
-  }
+    }
   }, [player])
+  console.log(player)
+  console.log(me)
   return (
     <Routes>
       <Route path='/' element={<Inicio setSeed={setSeed} dispatchPlayer={dispatchPlayer} confirmState={confirmState} setConfirmState={setConfirmState} />} />
       <Route path='EscritorDatos' element={<EscritorDatos confirmState={confirmState} setConfirmState={setConfirmState} />} />
       <Route path="/world" element={<World dispatchPlayer={dispatchPlayer} debounce={debounce} setDebounce={setDebounce} mapa={mapa} evento={evento} />} />    
       {
-        player && <Route path="/duelo" element={<Duelo yo={player.pokemon} setEvento= {setEvento} pokemonEnemigo={enemigo} />} />    
-
+        player && <Route path="/duelo" element={<Duelo yo={me} setEvento= {setEvento} pokemonEnemigo={enemigo} />} />    
       }
     </Routes>
   )

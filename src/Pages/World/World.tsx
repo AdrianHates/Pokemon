@@ -2,11 +2,19 @@ import { useEffect, useState } from "react"
 import { useNavigate, useLocation } from 'react-router-dom';
 import { spriteBruno } from "../../App";
 import './styles/World.css'
+import useModal from "../../CustomHooks/useModal";
+import ModalText from "../../Componentes/Modal";
+import useTypingEffect from "../../CustomHooks/useTypingEffect";
+import useDelayedNavigation from "../../CustomHooks/useDelayNavegation";
+const typingSpeed = 100; 
 
 export default function World ( { dispatchPlayer, debounce, setDebounce, mapa, evento }) {
-  const [backgroundImagePosition, setBackgroundPosition] = useState('');
   const [scaleX, setScaleX] = useState('')
-  const location = useLocation();
+  const [backgroundImagePosition, setBackgroundPosition] = useState('');
+  const { displayText } = useTypingEffect(evento?.name, typingSpeed);
+  const {isOpen, openModal, closeModal, modalContent} = useModal(displayText)  
+  useDelayedNavigation(evento, '/duelo', 3000);
+  const location = useLocation(); 
   const isWorldPage = location.pathname === '/world'
   const navigate = useNavigate();
 
@@ -20,14 +28,6 @@ export default function World ( { dispatchPlayer, debounce, setDebounce, mapa, e
     
     grass: 'https://archives.bulbagarden.net/media/upload/3/33/RSE_Grass.png'
   }
-
-  useEffect(()=>{
-    if(evento) {
-      setTimeout(()=>{
-        navigate('/duelo');
-      }, 2000)
-    }
-  },[evento])
 
   useEffect(() => {
     
@@ -102,11 +102,9 @@ export default function World ( { dispatchPlayer, debounce, setDebounce, mapa, e
             }
       </div>
       
-      {evento && 
-      <div className="descripcion-world">
-      {evento.name}
-      </div>
-      }
+      
+
+      <ModalText isOpen={evento?.name} closeModal={closeModal} modalContent={modalContent} className="descripcion-world" />
   </div>
   )
 }
