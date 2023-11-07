@@ -11,7 +11,7 @@ import useProbability from './CustomHooks/useProbability';
 
 export const spriteBruno = 'https://i.imgur.com/6oa9is6.png'
 
-function playerReducer(state:object, action:any) {
+function playerReducer(state:any, action:any) {
   switch (action.type) {
       
     case 'MOVE_RIGHT':
