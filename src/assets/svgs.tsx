@@ -38,6 +38,6 @@ xmlSpace="preserve"
 />
 </svg>
 
-export const plataformaDuelo = <svg xmlns="http://www.w3.org/2000/svg" width="600" height="200" viewBox="-15 -10 30 20">
-<ellipse stroke="#000" fill="green" rx="23" ry="9"/>
+export const plataformaDuelo = <svg xmlns="http://www.w3.org/2000/svg" viewBox="-15 -10 30 20">
+<ellipse stroke="#000" fill="green" rx="14" ry="5"/>
 </svg>

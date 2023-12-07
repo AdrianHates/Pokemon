@@ -10,7 +10,7 @@ import { getPokemonById } from './services/get';
 import useProbability from './CustomHooks/useProbability';
 
 export const spriteBruno = 'https://i.imgur.com/6oa9is6.png'
-
+export const newSpriteBruno = 'https://i.imgur.com/HmHblAj.png'
 function playerReducer(state:any, action:any) {
   switch (action.type) {
       

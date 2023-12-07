@@ -8,18 +8,27 @@
   user-select: none; 
 }
 
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
 #root {
   display: flex;
-  width: 100%;
-  min-height: 100vh;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  border-radius: 10px;
+  width: 1400px;
+  height: 100vh;
+  outline: 5px solid var(--c-black-0);
 }
 
 .celda {
-  width: 70px;
-  height: 70px;
+  width: 100%;
+  height: calc(100% / 11)
 }
 
 .grass {
@@ -32,20 +41,30 @@
 
 @keyframes fade-in-right {
   0% {
-      transform: translateX(100px);
+      transform: translateX(800%);
   }
   100% {
-      transform: translateX(-100px);
+      transform: translateX(0%);
   }
 }
 
 @keyframes fade-in-left {
   0% {
-      transform: translateX(-100px);
+      transform: translateX(0px);
   }
   100% {
-      transform: translateX(100px);
+      transform: translateX(0px);
   }
+}
+
+@keyframes translate-out-left {
+  0% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(-250%);
+  }
+  
 }
 
 @keyframes impactrueno-animation {

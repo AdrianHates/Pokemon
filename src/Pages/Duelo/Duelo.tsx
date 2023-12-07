@@ -1,21 +1,26 @@
-import Pokemon from "../../Componentes/Pokemon";
+import { AvatarImg, AvatarBackImage } from "../../Componentes/Avatar";
 import { useState, useEffect, useReducer } from "react";
 import { useNavigate} from "react-router-dom";
 import { plataformaDuelo } from "../../assets/svgs";
 import BarraDuelo from "../../Componentes/BarraDuelo";
 import './styles.css/Duelo.css'
-const opciones = ['LUCHA', 'MOCHILA', 'POKÉMON', 'HUIDA']
+import { newSpriteBruno, spriteBruno } from "../../App";
+import useTypingEffect from "../../CustomHooks/useTypingEffect";
+const opciones = ['INVOCANDO', 'LUCHA', 'MOCHILA', 'POKÉMON', 'HUIDA']
 
 
 export default function Duelo ( { yo, pokemonEnemigo, setEvento } ) {
 
-  const [displayText, setDisplayText] = useState('');
-  const typingSpeed = 50
-  const [secuencia, setSecuencia] = useState(false)
+  const [secuencia, setSecuencia] = useState(opciones[0])
   const [pokemon, setPokemon] = useState(pokemonEnemigo)
   const [animation, setAnimation] = useState(false)
-  const navigate = useNavigate();
+  const [animationSummon, setAnimationSummon] = useState('fade-in-right 2s forwards');
+  
+  const [frameIndex, setFrameIndex] = useState(0);
+  const [textoTipificado, setTextoTipificado] = useState('')
+  const { displayText, finishedTyping } = useTypingEffect(textoTipificado, 100)
 
+  
   const [select, dispatch] = useReducer(selectReducer, {
     opcion: 0,
     opcionesHabilidadesAnimation: null
@@ -93,96 +98,59 @@ export default function Duelo ( { yo, pokemonEnemigo, setEvento } ) {
         break;
       }
   }
-  /*
-  useEffect(() => {
-    if(!secuencia) {
-      let currentIndex = 0;
-      let initialText = `${pokemon.name} salvaje ha aparecido!`
-      const typingInterval = setInterval(() => {
-        if (currentIndex <= initialText.length) {
-          setDisplayText(initialText.slice(0, currentIndex));
-          currentIndex += 1;
-        } else {
-          clearInterval(typingInterval);
 
-          currentIndex = 0
-          initialText = `Aparece ${yo[0].data.name}!`;
-            setTimeout(() => {
-              const newTypingInterval = setInterval(() => {
-              if (currentIndex <= initialText.length) {
-                setDisplayText(initialText.slice(0, currentIndex));
-                currentIndex ++
-              } else {
-                clearInterval(newTypingInterval);
-                setSecuencia(true)
-              }
-          }, typingSpeed)
-        }, 1000)
-      }
-      }, typingSpeed);
-      
-      return () => {
-        
-        clearInterval(typingInterval);
-      };
-      
-  } else {
-    setTimeout(() => {
-      TablaDeLucha()
-    }, 1000)
-  }
-  
-
-  }, [secuencia]);
-*/
   useEffect( () => {
     document.addEventListener('keydown', selectMostrarOpciones);
     return () => {
       document.removeEventListener('keydown', selectMostrarOpciones);
     }
   }, [])
-/*
-  useEffect( () => {
-    if(pokemon.HPActual === 0) {
-      setEvento(false)
-      navigate("/world");
+
+  useEffect(() => {
+    if(frameIndex > 2) {
+      return
     }
-  } , [pokemon.HPActual])
-*/
-/*
-  useEffect (() => {
-    if(select.opcionesHabilidadesAnimation === 2) {
-      setTimeout(() => {
-        setAnimation(true)
-        setTimeout(() => {
-          setAnimation(false)
-          select.opcionesHabilidadesAnimation = 0        
-        }, 1000)
-      }, 1000)
+    if(frameIndex === 1) {
+      setTextoTipificado('Un pokemon salva ha aparecido!')
+    }
+
+    if(frameIndex===2) {
+      setAnimationSummon('translate-out-left 3s forwards')
     }
     
-  }, [select.opcionesHabilidadesAnimation])
-*/
-console.log(yo)
+    const intervalId = setInterval(() => {
+      setFrameIndex((prevFrameIndex) => (prevFrameIndex + 1));
+    }, 2000);
+
+    return () => clearInterval(intervalId); // Limpia el intervalo cuando el componente se desmonta
+  }, [frameIndex]);
+
+console.log(textoTipificado)
   return(
     <div id='duelo'>
       <div>
         <div style={{backgroundColor: `${animation?'white':''}`, opacity: `${animation?'0.5':''}` ,animation:`${animation?'impactrueno-animation 1s ease infinite':''}`}}>
-          <Pokemon alt={pokemonEnemigo.name} src={pokemon.sprites.versions['generation-iii'].emerald.front_default} />
+          <AvatarImg alt={pokemonEnemigo.name} src={pokemonEnemigo.sprites.versions['generation-iii'].emerald.front_default} />
           {plataformaDuelo}
           
         </div>
 
         <BarraDuelo datos={pokemonEnemigo} />
       </div>
-      <div>
+
+      {secuencia === 'INVOCANDO' && <div>
+        <div><AvatarBackImage animation={animationSummon} url={newSpriteBruno} backgroundPosition={`${-frameIndex*240}px -520px`} className='invocando' />
+        </div>
+      </div>}
+
+      {false&&<div>
         <div>
-        <Pokemon alt={yo.name} src={yo.sprites.versions['generation-iii']['ruby-sapphire'].back_default} />
+        <AvatarImg alt={yo.name} src={yo.sprites.versions['generation-iii']['ruby-sapphire'].back_default} />
         {plataformaDuelo}
         </div>
         <BarraDuelo datos={yo} />
 
-        </div>
+      </div>}
       <div className="descripcion-duelo" >
         {(select.opcionesHabilidadesAnimation === null || select.opcionesHabilidadesAnimation === 0) && <div className="texto">{displayText}</div>}
         {

@@ -9,8 +9,7 @@
   & > div:first-of-type, > div:nth-of-type(2) {
     
     position: absolute;
-    width: 600px;
-    height: 250px;
+    width: 700px;
 
     
   & > div:first-of-type {    
@@ -31,7 +30,7 @@
     & > svg {
       position: absolute;
       z-index: -1;
-      top: 35%;
+      top: -10%;
       transform: translateY(-20%);
       left: 50%;
       width: 90%;
@@ -80,18 +79,21 @@
   
   }
 & > div:first-of-type {
-  animation: fade-in-right 2s forwards;
+  animation: fade-in-left 2s forwards;
   top: 15%;
   right: 0;
 }
 & > div:nth-of-type(2) {
   & > div:nth-of-type(2) {
-  
     left: 130%;
   }
-  animation: fade-in-left 2s forwards;
-  bottom: 15%;
+  bottom: 24%;
   left: 0;
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 & > div:nth-of-type(3) {
   position: absolute;
@@ -100,6 +102,15 @@
   bottom: calc(7.5px + 5px);
 
 }
+.invocando {
+  width: 240px;
+  height: 180px;
+  background-repeat: no-repeat;
+  background-size: 2800px 980px;  
+  background-position: 0px 0px; 
+
+}
+
 }
 
 .descripcion-duelo {

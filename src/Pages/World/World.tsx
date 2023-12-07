@@ -1,22 +1,21 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { spriteBruno } from "../../App";
 import './styles/World.css'
 import useModal from "../../CustomHooks/useModal";
 import ModalText from "../../Componentes/Modal";
 import useTypingEffect from "../../CustomHooks/useTypingEffect";
 import useDelayedNavigation from "../../CustomHooks/useDelayNavegation";
-const typingSpeed = 100; 
+const typingSpeed = 0; 
 
 export default function World ( { dispatchPlayer, debounce, setDebounce, mapa, evento }) {
   const [scaleX, setScaleX] = useState('')
   const [backgroundImagePosition, setBackgroundPosition] = useState('');
   const { displayText } = useTypingEffect(evento?.name, typingSpeed);
-  const {isOpen, openModal, closeModal, modalContent} = useModal(displayText)  
-  useDelayedNavigation(evento, '/duelo', 3000);
+  const {closeModal, modalContent} = useModal(displayText)  
+  useDelayedNavigation(evento, '/duelo', 1000);
   const location = useLocation(); 
   const isWorldPage = location.pathname === '/world'
-  const navigate = useNavigate();
 
   const texturaBase = {
     pastito: 'https://i.pinimg.com/564x/98/c1/5a/98c15a449a1166ec23f5c9f1f63995dd.jpg',
